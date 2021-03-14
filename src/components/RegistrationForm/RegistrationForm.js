@@ -33,9 +33,11 @@ class RegistrationForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.validation();
   };
 
-  validation(data) {
+  validation() {
+    const { data } = this.state;
     if (
       data &&
       data.studentName &&
@@ -55,7 +57,6 @@ class RegistrationForm extends Component {
   onChange = (key, value) => {
     const data = { ...this.state.data, [key]: value };
     this.setState({ data });
-    this.validation(data);
   };
 
   render() {
@@ -78,7 +79,7 @@ class RegistrationForm extends Component {
             <Remarks onChange={this.onChange} />
 
             <Grid container spacing={4} justify="flex-end">
-              <Grid item lg={12}>
+              <Grid item>
                 {this.state.download && (
                   <PDFDownloadLink
                     document={<MyDocument data={this.state.data} />}
@@ -86,7 +87,9 @@ class RegistrationForm extends Component {
                   >
                     {({ blob, url, loading, error }) =>
                       loading ? (
-                        'Loading document...'
+                        <Button type="submit" variant="contained" color="default" disabled>
+                          Loading document...
+                        </Button>
                       ) : (
                         <Button type="submit" variant="contained" color="primary">
                           Download
@@ -97,7 +100,7 @@ class RegistrationForm extends Component {
                 )}
                 {!this.state.download && (
                   <Button type="submit" variant="contained" color="primary">
-                    Download
+                    Submit
                   </Button>
                 )}
               </Grid>

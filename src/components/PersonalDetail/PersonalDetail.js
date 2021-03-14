@@ -55,6 +55,7 @@ const PersonalDetail = ({ onChange }) => {
             <div>
               <TextField
                 id="whatsAppNumber"
+                type="tel"
                 label="WhatsApp Number"
                 variant="outlined"
                 onChange={(e) => onChange('whatsAppNo', e.target.value)}

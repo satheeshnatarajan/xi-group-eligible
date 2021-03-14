@@ -30,9 +30,9 @@ const Marks = ({ onChange }) => {
   const classes = useStyles();
 
   const [mark, setMark] = useState({
-    language: 0,
-    maths: 0,
-    science: 0,
+    language: '',
+    maths: '',
+    science: '',
   });
   const [total, setTotal] = useState(0);
   const [concession, setConcession] = useState(0);
