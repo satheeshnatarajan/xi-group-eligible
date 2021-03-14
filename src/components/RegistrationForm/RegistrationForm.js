@@ -20,6 +20,12 @@ const styles = (theme) => ({
       margin: theme.spacing(1),
     },
   },
+  buttons: {
+    '& > *': {
+      margin: theme.spacing(1),
+      textDecoration: 'none',
+    },
+  },
 });
 
 class RegistrationForm extends Component {
@@ -28,11 +34,13 @@ class RegistrationForm extends Component {
     this.state = {
       download: false,
       data: {},
-    };
+      // "download":true,"data":{"studentName":"Satheesh","fatherName":"Natarajan","motherName":"Kamala","mobileNo":"+919698480404","address":"Plot no 123 Nizam colony","whatsAppNo":"+919698480404","previousSchool":"Sri Bharathi","applicationDate":"2021-03-14T20:26","applicationNo":"12345","entranceDate":"2021-03-21T20:26","marks":{"concession":25,"language":5,"maths":5,"science":10,"total":20,"courses":[{"code":"MPCB","rule":{"maths":10,"science":15},"eligible":true},{"code":"MPCCS","rule":{"maths":8,"science":12}}]},"remarks":"Test"}    },
+    }
   }
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.setState({ download: false });
     this.validation();
   };
 
@@ -79,30 +87,30 @@ class RegistrationForm extends Component {
             <Remarks onChange={this.onChange} />
 
             <Grid container spacing={4} justify="flex-end">
-              <Grid item>
+              <Grid item className={classes.buttons}>
                 {this.state.download && (
                   <PDFDownloadLink
                     document={<MyDocument data={this.state.data} />}
-                    fileName={`${this.state.data.studentName}-${new Date().toLocaleDateString()}`}
+                    fileName={`${this.state.data.studentName}.pdf`}
                   >
-                    {({ blob, url, loading, error }) =>
-                      loading ? (
-                        <Button type="submit" variant="contained" color="default" disabled>
-                          Loading document...
-                        </Button>
-                      ) : (
-                        <Button type="submit" variant="contained" color="primary">
-                          Download
-                        </Button>
+                    {({ blob, url, loading, error }) => {                    
+                      return (
+                        loading ? (
+                          <Button variant="contained" color="default" disabled>
+                            Loading document...
+                          </Button>
+                        ) : (
+                          <Button variant="contained" color="primary">
+                            Download
+                          </Button>
+                        )
                       )
-                    }
+                    }}                      
                   </PDFDownloadLink>
                 )}
-                {!this.state.download && (
-                  <Button type="submit" variant="contained" color="primary">
-                    Submit
-                  </Button>
-                )}
+                <Button type="submit" variant="contained" color="primary">
+                  Submit
+                </Button>
               </Grid>
             </Grid>
           </form>

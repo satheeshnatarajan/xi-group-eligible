@@ -36,19 +36,24 @@ const Marks = ({ onChange }) => {
   });
   const [total, setTotal] = useState(0);
   const [concession, setConcession] = useState(0);
+  const [courses, setCourses] = useState(COURSES);
 
-  const isEligible = (rule) => {
+  const isEligible = (rule, mark) => {
     return mark.maths >= rule.maths && mark.science >= rule.science;
   };
 
   const calculateConcession = (subMark, total = 0) => {
     const eligibleConcession = CONCESSION.find((x) => total >= x.total);
     setConcession(eligibleConcession.percent);
+
+    const course = COURSES.map((course) => ({ ...course, eligible: isEligible(course.rule, subMark) }));
+    setCourses(course);
+
     onChange('marks', {
       ...subMark,
       total,
       concession: eligibleConcession.percent,
-      courses: COURSES.map((course) => ({ ...course, eligible: isEligible(course.rule) })),
+      courses: course,
     });
   };
 
@@ -158,9 +163,9 @@ const Marks = ({ onChange }) => {
                 Group Eligibility
               </Typography>
               <div className={classes.courses}>
-                {COURSES.map((course) => {
-                  const { code, rule } = course;
-                  const color = isEligible(rule) ? 'primary' : 'default';
+                {courses.map((course) => {
+                  const { code, eligible } = course;
+                  const color = eligible ? 'primary' : 'default';
                   return <Chip key={code} label={code} color={color} />;
                 })}
               </div>
