@@ -67,6 +67,9 @@ const styles = StyleSheet.create({
   consess: {
     backgroundColor: '#90caf9',
   },
+  remarksContent: {
+    minHeight: 100
+  }
 });
 
 // Create Document Component
@@ -170,7 +173,7 @@ const MyDocument = ({ data }) => (
       <View style={[styles.table, styles.border, styles.remarks]}>
         <Text style={[styles.label, styles.center]}>Remarks</Text>
       </View>
-      <View style={[styles.table, styles.border]}>
+      <View style={[styles.table, styles.border, styles.remarksContent]}>
         <Text style={styles.label}>{data.remarks}</Text>
       </View>
     </Page>
