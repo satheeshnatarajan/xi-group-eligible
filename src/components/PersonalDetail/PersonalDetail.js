@@ -123,6 +123,15 @@ const PersonalDetail = ({ onChange }) => {
                 fullWidth
               />
             </div>
+            <div>
+              <TextField
+                id="place"
+                label="Place"
+                variant="outlined"
+                onChange={(e) => onChange('place', e.target.value)}
+                fullWidth
+              />
+            </div>
           </Grid>
         </Grid>
       </Box>
