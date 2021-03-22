@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  equal: {
+    flex: 1,
+    flexWrap: 'wrap',
+  },
   tableCol: {
     display: 'flex',
     flexDirection: 'column',
@@ -68,8 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#90caf9',
   },
   remarksContent: {
-    minHeight: 100
-  }
+    minHeight: 100,
+  },
 });
 
 // Create Document Component
@@ -88,8 +92,8 @@ const MyDocument = ({ data }) => (
         <Text style={[styles.label, styles.center]}>XI Registration Particular</Text>
       </View>
       <View style={styles.table}>
-        <View style={[styles.table, styles.border]}>
-          <View style={styles.section}>
+        <View style={[styles.table, styles.border, styles.equal]}>
+          <View style={[styles.tableCol, styles.equal]}>
             <Text style={styles.label}>Student Name: </Text>
             <Text style={styles.label}>Father&apos;s Name: </Text>
             <Text style={styles.label}>Mother&apos;s Name: </Text>
@@ -97,7 +101,7 @@ const MyDocument = ({ data }) => (
             <Text style={styles.label}>Whatsapp no.: </Text>
             <Text style={styles.label}>Previous School: </Text>
           </View>
-          <View style={styles.section}>
+          <View style={[styles.tableCol, styles.equal]}>
             <Text style={styles.label}>{data.studentName}</Text>
             <Text style={styles.label}>{data.fatherName}</Text>
             <Text style={styles.label}>{data.motherName}</Text>
@@ -106,7 +110,7 @@ const MyDocument = ({ data }) => (
             <Text style={styles.label}>{data.previousSchool}</Text>
           </View>
         </View>
-        <View style={[styles.tableCol, styles.border, styles.section]}>
+        <View style={[styles.tableCol, styles.border, styles.equal]}>
           <View style={styles.table}>
             <View>
               <Text style={styles.label}>Application Date: </Text>
@@ -116,12 +120,16 @@ const MyDocument = ({ data }) => (
             <View>
               <Text style={styles.label}>{new Date(data.applicationDate).toLocaleString()}</Text>
               <Text style={styles.label}>{data.applicationNo}</Text>
-              <Text style={styles.label}>{new Date(data.applicationDate).toLocaleString()}</Text>
+              <Text style={styles.label}>{new Date(data.entranceDate).toLocaleString()}</Text>
             </View>
           </View>
           <View style={styles.tableCol}>
             <Text style={styles.label}>Address:</Text>
             <Text style={styles.label}>{data.address}</Text>
+          </View>
+          <View style={styles.table}>
+            <Text style={styles.label}>Place:</Text>
+            <Text style={styles.label}>{data.place}</Text>
           </View>
         </View>
       </View>
